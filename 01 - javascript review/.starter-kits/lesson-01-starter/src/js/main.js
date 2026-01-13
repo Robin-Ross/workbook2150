@@ -7,13 +7,13 @@
 // These IDs should already exist in index.html.
 
 // TODO: Select the main todo list container
-
+const toDoList = document.querySelector("#todo-list");
 // TODO: Select the output area for text and messages
-
+const outPut = document.querySelector("#output");
 // TODO: Select the Run Demo button
-
+const runBtn = document.querySelector("#btn-run");
 // TODO: Select the Clear button
-
+const clrBtn = document.querySelector("#btn-clear");
 // --------------------------------------------------
 // STEP 2: Variables and template strings
 // --------------------------------------------------
@@ -21,11 +21,11 @@
 // them using a template string.
 
 // TODO: Create a constant named course
-
+const course = "SDEV2150";
 // TODO: Create a variable named topic
-
+let topic = "JavaScript Review";
 // TODO: Use a template string to display both values
-
+outPut.innerHTML = `<p>Course: ${course} | Topic: ${topic}</p>`;
 // --------------------------------------------------
 // STEP 3: Functions and return values
 // --------------------------------------------------
