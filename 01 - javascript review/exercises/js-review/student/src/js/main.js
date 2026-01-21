@@ -103,8 +103,6 @@ function addMessage(message) {
 // - Render the task list
 function runDemo() {
   outPut.innerHTML = '';
-  addMessage('Running demo...');
-  addMessage(formatResult('5 + 8', add(5, 8)));
   toDoList.innerHTML = renderTaskList(tasks);
 };
 // TODO: Create a function clearUI()
@@ -138,16 +136,17 @@ addBtn.addEventListener('click', () => {
 // 1. Create a function toggleDone(title)
 //    - Find a task by title
 //    - Flip its done value (true/false)
-// function toggleDone(title) {
-//   let searching = true;
-//   while (searching) {
-//     for (const task of tasks) {
-//       if (title == task.title) {
-
-//       }
-//     }
-//   }
-// };
+function toggleDone(name) {
+  let searching = true;
+  while (searching) {
+    for (const task of tasks) {
+      if (name == task.title) {
+        task.done = (!task.done);
+        searching = false;
+      }
+    }
+  }
+};
 // 2. Update renderTaskList() to show '(done)' or '(todo)'
 function renderTaskList(items) {
   let html = '<ul>';
