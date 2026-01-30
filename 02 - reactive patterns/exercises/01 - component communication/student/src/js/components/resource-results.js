@@ -23,7 +23,7 @@ class ResourceResults extends HTMLElement {
     super();
     this.#results = [];
     // TODO: Bind the handleResultClick method to this instance
-
+    this._resultSelected = this._resultSelected.bind(this);
     this.attachShadow({ mode: 'open' });
   }
 
@@ -34,7 +34,7 @@ class ResourceResults extends HTMLElement {
   }
 
   // TODO: Add an event handler method for result selection
-  _resultSelected(result) {
+  _resultSelected(event) {
     // this.dispatchEvent(new CustomEvent('resource-selected', {
     //   detail: {
     //     resource: {
@@ -56,13 +56,14 @@ class ResourceResults extends HTMLElement {
 
   connectedCallback() {
     // TODO: Add a click event listener to handle result selection
-    
+    this.shadowRoot.addEventListener('click', this._resultSelected);
     this.render();
   }
 
   // TODO: Clean up event listener in disconnectedCallback
-
-  
+  disconnectedCallback() {
+    this.shadowRoot.removeEventListener('click', this._resultSelected);
+  }
 
   render() {
     // TODO: Update to render from the private results field, if it's empty, show "No results found" message
