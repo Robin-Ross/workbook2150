@@ -35,6 +35,22 @@ class ResourceResults extends HTMLElement {
 
   // TODO: Add an event handler method for result selection
   _resultSelected(event) {
+    const button = event.target.closest('button[data-id]'); // Targetting the closest button that matches the data-id.
+    if (button) {
+      const resultID = button.getAttribute('data-id');
+      const result = this.#results.find(r => r.id === resultID); // We're finding the result in the array, not in the UI.
+
+      const resultSelectedEvent = new CustomEvent(
+        'resource-selected',
+        {
+          detail: { result }, // make sure not to pre-filter, as anything could be relevant.
+          bubbles: true, // When true, the parent node and document can listen for the event without being specifically wired together.
+          composed: true, // When true, events can cross the shadow DOM boundary.
+        },
+      );
+      
+      this.dispatchEvent(resultSelectedEvent);
+    }
     // this.dispatchEvent(new CustomEvent('resource-selected', {
     //   detail: {
     //     resource: {
