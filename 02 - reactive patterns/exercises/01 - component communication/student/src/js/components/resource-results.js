@@ -10,17 +10,18 @@ template.innerHTML = `
 
 class ResourceResults extends HTMLElement {
   // TODO: Create a private field for results data
-  #results = null;
+  #results = [];
   constructor() {
     super();
-    this.#results = null;
+    this.#results = [];
     // TODO: Bind the handleResultClick method to this instance
 
     this.attachShadow({ mode: 'open' });
   }
 
   // TODO: Implement setter for results data, remember to render
-  set results(object) {
+  set results(array) {
+    this.#results = array;
     this.render();
   }
 
