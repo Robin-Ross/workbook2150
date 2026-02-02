@@ -21,7 +21,6 @@ class ResourceResults extends HTMLElement {
   #results = [];
   constructor() {
     super();
-    this.#results = [];
     // TODO: Bind the handleResultClick method to this instance
     this._resultSelected = this._resultSelected.bind(this);
     this.attachShadow({ mode: 'open' });
@@ -37,6 +36,9 @@ class ResourceResults extends HTMLElement {
   _resultSelected(event) {
     const button = event.target.closest('button[data-id]'); // Targetting the closest button that matches the data-id.
     if (button) {
+      this.shadowRoot.querySelector('button.active')?.classList.remove('active');
+      button.classList.add('active');
+
       const resultID = button.getAttribute('data-id');
       const result = this.#results.find(r => r.id === resultID); // We're finding the result in the array, not in the UI.
 
@@ -48,7 +50,7 @@ class ResourceResults extends HTMLElement {
           composed: true, // When true, events can cross the shadow DOM boundary.
         },
       );
-      
+
       this.dispatchEvent(resultSelectedEvent);
     }
     // this.dispatchEvent(new CustomEvent('resource-selected', {
@@ -83,7 +85,6 @@ class ResourceResults extends HTMLElement {
 
   render() {
     // TODO: Update to render from the private results field, if it's empty, show "No results found" message
-    
     const content = template.content.cloneNode(true);
     const listGroup = content.querySelector('.list-group');
 
