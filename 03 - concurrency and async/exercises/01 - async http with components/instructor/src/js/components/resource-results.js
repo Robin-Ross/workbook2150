@@ -104,10 +104,20 @@ class ResourceResults extends HTMLElement {
 
   async #fetchData(source) {
     // try-except a fetch
-    // check if response is OK (i.e. status code 200)
-    // if so, try to get data from response
-    // catch and log any errors
-    // ensure this is written in a way that will trigger a re-render
+    try {
+      const response = await fetch(source);
+      // response.ok is a boolean for whether response status code was 200 (OK)
+      if (!response.ok) {
+        throw new Error(`Network response not ok: ${response.statusText}`)
+      }
+      // if we got to this point, response was OK, so we can try grabbing data
+      const data = await response.json();  // had to await the fetch for the response, so we have to await for the json from the response
+      this.results = data;
+      // ^ why am I writing to this.results, rather than this.#results?
+      // What would I have to trigger manually if I did that?
+    } catch (error) {
+      console.error('Failed to fetch data: ', error);
+    }
   }
 
   #applyFilters() {
