@@ -1,4 +1,3 @@
-// src/components/Filters.jsx
 export default function Filters() {
   return (
     <aside className="h-full mb-4">
@@ -26,6 +25,7 @@ export default function Filters() {
             <div className="space-y-2">
               <div className="text-sm font-semibold text-gray-800">Category</div>
               <div className="flex flex-wrap gap-2" aria-label="Category filters">
+                {/* INFO: Could just copy/paste individual buttons, but this is more maintainable */}
                 {['All', 'Academic', 'Wellness', 'Financial', 'Tech'].map((label) => (
                   <button
                     key={label}

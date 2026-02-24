@@ -1,26 +1,24 @@
+import './App.css'
+
+// components
 import Header from './components/Header';
+import Details from './components/Details';
 import Filters from './components/Filters';
 import Results from './components/Results';
-import Details from './components/Details';
-import './App.css';
+
 
 function App() {
-  return (
-    <>
-      <Header tagline="Find the right resources, right away" />
-      <div className="flex flex-col gap-6 lg:grid lg:grid-cols-3 lg:items-stretch">
-        <div className="w-full">
-          <Filters />
+
+    return (
+      <>
+        <Header tagline="I was supposed to come up with something, but have no imagination." />
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-3">
+          <Filters className="w-full" />
+          <Results className="w-full" />
+          <Details className="w-full" />
         </div>
-        <div className="w-full">
-          <Results />
-        </div>
-        <div className="w-full">
-          <Details />
-        </div>
-      </div>
-    </>
-  );
+      </>
+    );
 }
 
-export default App;
+export default App

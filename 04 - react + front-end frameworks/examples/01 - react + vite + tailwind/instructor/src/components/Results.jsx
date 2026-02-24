@@ -1,4 +1,3 @@
-// src/components/Results.jsx
 export default function Results() {
   return (
     <section className="h-full mb-4">
@@ -9,7 +8,7 @@ export default function Results() {
             4
           </span>
         </div>
-
+        {/* Replaced div with buttons with a list */}
         <ul className="divide-y divide-gray-200">
           <li
             className="w-full text-left bg-blue-600 text-white px-4 py-3 focus:outline-none"
