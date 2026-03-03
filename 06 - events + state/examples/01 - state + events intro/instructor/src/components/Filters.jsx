@@ -1,7 +1,13 @@
+import { useState } from 'react';
+
+// ui
 import Card from './ui/Card';
 
 // src/components/Filters.jsx
 export default function Filters() {
+
+  const [searchText, setSearchText] = useState('');
+
   return (
     <Card title="Filters">
       <div className="space-y-4 p-4">
@@ -12,10 +18,13 @@ export default function Filters() {
             </label>
             <input
               id="q"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
               type="text"
               placeholder="Try: tutoring, mental health, bursary"
               className="w-full rounded border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
             />
+            Search term is: {searchText}
           </div>
 
           <hr className="border-gray-200" />
