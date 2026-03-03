@@ -7,6 +7,28 @@ import Card from './ui/Card';
 export default function Filters() {
 
   const [searchText, setSearchText] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  function toggleCategory(category) {
+    // we're going to do some slightly complex logic in our setter function
+    // to 'simulate' toggling each category
+    setSelectedCategories(
+      (existing) => {
+        // if our existing selected terms already includes whatever just got clicked,
+        // that means we're *deselecting* it,
+        if (existing.includes(category)) {
+          // so filter it out of the existing terms (and update the array)
+          return existing.filter(
+            (cat) => cat !== category
+          );
+        }
+
+        // otherwise, (it wasn't selected and now we're selecting it)
+        // so just add it to the array of selected categories
+        return [...existing, category]
+      }
+    )
+  }
 
   return (
     <Card title="Filters">
@@ -36,7 +58,8 @@ export default function Filters() {
                 <button
                   key={label}
                   type="button"
-                  className="rounded border border-sky-600 px-3 py-1 text-xs font-semibold text-sky-700 hover:bg-sky-50"
+                  className={`${selectedCategories.includes(label) && 'bg-sky-600 text-white'} rounded border border-sky-600 px-3 py-1 text-xs font-semibold text-sky-700 hover:bg-sky-50`}
+                  onClick={() => toggleCategory(label)}
                 >
                   {label}
                 </button>
