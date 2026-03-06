@@ -16,9 +16,9 @@ export default function Results({
       <ul className="divide-y divide-gray-200">
         {resources.filter((r) => {
           // I want to check every element for whether it matches each filter option,
-          const matchesSearch
-          const matchesCategory
-          const matchesOpenNow
+          const matchesSearch   = r.title.toLowerCase().includes(searchTerm.toLowerCase());
+          const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(r.category.toLowerCase());
+          const matchesOpenNow  = !openNow || r.openNow;
           // Then return true or false as the result of this conditional expression if *all*
           // those checks match (I might have multiple filters being used at once).
           return matchesSearch && matchesCategory && matchesOpenNow
