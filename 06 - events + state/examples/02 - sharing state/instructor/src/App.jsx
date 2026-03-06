@@ -36,7 +36,7 @@ function App() {
         />
       </section>
       <aside className="md:col-span-1 lg:col-span-1">
-        <Details selectedResource={selectedResource} />
+        <Details resource={selectedResource} />
       </aside>
     </PageLayout>
     // <PageLayout
