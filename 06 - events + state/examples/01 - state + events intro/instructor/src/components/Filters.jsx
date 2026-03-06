@@ -11,6 +11,23 @@ export default function Filters() {
   const [openNow, setOpenNow] = useState(false);
   const [virtual, setVirtual] = useState(false);
 
+  function resetForm() {
+    setSearchText('');
+    setSelectedCategories([]);
+    setOpenNow(false);
+    setVirtual(false);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("form submitted");
+
+    /* Normally, when you submit a form, you want to clear the inputs. *However*, in this case,
+       I'm choosing to keep the filters as-is because I want the user to still be able to see
+       their filters while they're narrowing down what gets shown in Results.
+    */
+  }
+
   function toggleCategory(category) {
     // we're going to do some slightly complex logic in our setter function
     // to 'simulate' toggling each category
@@ -39,7 +56,11 @@ export default function Filters() {
   return (
     <Card title="Filters">
       <div className="space-y-4 p-4">
-        <form id="frm-filter" className="space-y-4">
+        <form
+          id="frm-filter"
+          className="space-y-4"
+          onSubmit={handleSubmit}
+        >
           <div className="space-y-1">
             <label htmlFor="q" className="block text-sm font-medium text-gray-700">
               Search
@@ -119,6 +140,7 @@ export default function Filters() {
             <button
               type="button"
               className="rounded border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+              onClick={resetForm}
             >
               Reset
             </button>
