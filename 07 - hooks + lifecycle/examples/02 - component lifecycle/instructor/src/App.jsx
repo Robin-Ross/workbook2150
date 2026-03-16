@@ -37,6 +37,9 @@ function App() {
         />
       </aside>
       <section className="md:col-span-2 lg:col-span-1">
+      {isLoading ? (
+        <div className="text-sm text-base-content/70">Loading resources...</div>
+      ) : (
         <Results
           selectedResource={selectedResource}
           onSelectResource={setSelectedResource}
@@ -46,6 +49,7 @@ function App() {
           virtualOnly={virtualOnly}
           resources={resources}
         />
+      )}
       </section>
       <aside className="md:col-span-1 lg:col-span-1">
         {selectedResource ? (
