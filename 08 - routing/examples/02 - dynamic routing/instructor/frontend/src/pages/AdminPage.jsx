@@ -1,5 +1,5 @@
 // react hooks
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // react-router hooks
 import { useNavigate, useParams } from 'react-router';
@@ -28,7 +28,7 @@ export default function AdminPage() {
   const { resourceId } = useParams();  // consume dynamic props from URL/route
   const navigate = useNavigate()       // lets us programmatically 'push' the user to some page
 
-  console.log(resourceId)
+  // console.log(resourceId)
 
   const { resources, isLoading, error, refetch } = useResources();
 
@@ -115,6 +115,40 @@ export default function AdminPage() {
         openNow: false,
     })
   }
+
+  // set up an effect to prepopulate the form data with whatever object corresponds
+  // to the ID at that URL route (e.g. /admin/tutoring)
+  useEffect(
+
+    () => {
+
+      if (!resourceId) { // basically, if we're at admin/ (with no :resourceId)
+        // notice how this overwrites the initial state - proof that effects happen after pure rendering
+        resetForm();
+        return;
+      }
+
+      const resource = resources.find((item) => item.id === resourceId);
+      // if there's no matching resource for the ID, leave the form blank
+      if (!resource) return;
+
+      setFormData({
+        title: resource.title,
+        category: resource.category,
+        summary: resource.summary,
+        location: resource.location,
+        hours: resource.hours,
+        contact: resource.contact,
+        virtual: resource.virtual,
+        openNow: resource.openNow,
+      });
+
+    },
+
+    [resources, resourceId]  // when this was empty, we weren't getting data
+                             // which tells us that react-router state isn't present
+                             // right when the component mounts; we need to watch params.
+  )
 
   return (
     <>
