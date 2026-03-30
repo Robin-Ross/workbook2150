@@ -46,6 +46,7 @@ export default function AdminPage() {
         <Card title="Resource Form">
           <div className="card-body">
             <AdminForm
+              key={resourceId ?? 'new'}
               initialData={EXAMPLE_RESOURCE}
               resources={resources}
               resourceId={resourceId}
