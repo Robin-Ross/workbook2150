@@ -60,12 +60,22 @@ export default function AdminForm({
 
   const navigate = useNavigate();
 
-  async function createResource(e) {
+  async function handleSubmit(e) {
+    // instead of writing semi-duplicate functions for creating vs. editing,
+    // I can just change only the things that need to using isEditing as a toggle
     e.preventDefault();
+
+    // I'll group all the things that change based on isEditing up here.
+    let url = 'http://localhost:3000/resources'
+    if (isEditing) {
+      url += `/${resourceId}`
+    }
+
+    const method = isEditing ? 'PUT' : 'POST'
     
-    const res = await fetch('http://localhost:3000/resources',
+    const res = await fetch(url,
       {
-        method: 'POST',
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -74,12 +84,20 @@ export default function AdminForm({
     );
 
     if (!res.ok) {
-      throw new Error('Error creating resource.'); // kept simple for time's sake
+      throw new Error(`Could not ${isEditing ? 'update' : 'create'} resource`);
     }
 
     // finally (since we've posted a result), refetch using the function we supplied from
     // our useResources() hook -> refetches data incl. newly created -> re-renders
-    refetch();
+    const savedResource = await res.json();
+    console.log(savedResource);
+    refetch(); // I commented out the 2s delay so it doesn't look like something is wrong
+
+    // and finally, navigate to the route for the item we just updated
+    navigate(`/admin/${savedResource.id}`);
+    // note: Make sure you're pathing to `/admin...` vs. `admin...`!
+    //       Without the leading slash to indicate the route root, react-router
+    //       assumes it's a path nested inside this one. Try toggling it and see what happens!
   }
 
   const resetForm = () => {
@@ -135,7 +153,7 @@ export default function AdminForm({
   )
 
   return (
-    <form onSubmit={createResource} id="frm-add-resource" className="space-y-4">
+    <form onSubmit={handleSubmit} id="frm-add-resource" className="space-y-4">
 
       <div className="space-y-1">
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
