@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from 'react-router';
+import { NavLink, useLoaderData, useNavigate } from 'react-router';
 
 import Card from '../components/ui/Card';
 import ResourceForm from '../components/ResourceForm';
@@ -63,12 +63,17 @@ export default function AdminPage() {
           <div className="card-body">
             <ul className="space-y-2">
               {resources.map((resource) => (
-                <li
-                  key={resource.id}
-                  className="rounded border border-gray-200 p-3 cursor-pointer hover:border-sky-400"
-                >
-                  <p className="font-semibold">{resource.title}</p>
-                  <p className="text-sm text-base-content/70">{resource.category}</p>
+                <li key={resource.id}>
+                  <NavLink
+                    to={`/admin/${resource.id}`}
+                    className={
+                      ({ isActive }) => 
+                      `block rounded border p-3 ${isActive ? 'border-sky-500 bg-sky-50' : 'border-gray-200'}`
+                    }
+                  >
+                    <p className="font-semibold">{resource.title}</p>
+                    <p className="text-sm text-base-content/70">{resource.category}</p>
+                  </NavLink>
                 </li>
               ))}
             </ul>
