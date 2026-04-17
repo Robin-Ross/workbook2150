@@ -3,10 +3,17 @@ import { ThemeContext } from './ThemeContext';
 
 export function ThemeProvider({ children }) {
 
-  // skeleton for now
+  const [theme, setTheme] = useState('light')
+  
+  // create a function to toggle the theme; I can use that in e.g. buttons
+  function toggleTheme() {
+    setTheme(
+      (prev) => (prev === 'light' ? 'dark' : 'light')
+    )
+  }
 
   return (
-    <ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
